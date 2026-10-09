@@ -1,0 +1,34 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+/* Coleccion variable */
+:root {
+  /* Mode 1 */
+  /* color */
+  --blanco: #ffffff;
+  --btn-select-trazo: #a370fc;
+  --btn-selected: #322849;
+  --fondos-burbujas: #1b1b1b;
+  --icono-correo: #5334eb;
+  --icono-diseño-interactivo: #a21caf;
+  --icono-doc: #13a3b5;
+  --icono-educacion: #d61973;
+  --icono-hoja-calculo: #138eff;
+  --icono-imprimir: #992bff;
+  --icono-pizarra: #0ba84a;
+  --icono-presentacion: #ff6105;
+  --icono-redes: #ff3b4b;
+  --icono-sitio-web: #4a53fa;
+  --icono-video: #e950f7;
+  --relleno-secundario: #d9d9d9;
+  --relleno-secundario-1: #696969;
+  /* number */
+  --size-texto-iconos: 0.75rem;
+  --size-info-documentos: 0.875rem;
+  --size-botones: 1.125rem;
+  --size-nombre-documentos: 1.25rem;
+  --size-titulo: 2.875rem;
+}
