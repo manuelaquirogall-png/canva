@@ -161,7 +161,7 @@ button {
 
 .titulo {
   font-size: var(--size-titulo);
-  font-weight: 600;
+  font-weight: 500;
   /* texto con degradado */
   background: linear-gradient(90deg, #22d3ee, #8b5cf6);
   -webkit-background-clip: text;
