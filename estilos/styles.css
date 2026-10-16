@@ -25,10 +25,419 @@
   --icono-video: #e950f7;
   --relleno-secundario: #d9d9d9;
   --relleno-secundario-1: #696969;
+  --hoover: #7a7a7a56 ;
+  --fondoPagina: #18181d;
+  --fondoMenu: #1f0d33;
   /* number */
   --size-texto-iconos: 0.75rem;
   --size-info-documentos: 0.875rem;
   --size-botones: 1.125rem;
   --size-nombre-documentos: 1.25rem;
   --size-titulo: 2.875rem;
+}
+
+/* ========== ESTILOS DE LA PANTALLA ========== */
+
+body {
+  display: flex;                 /* menu a la izquierda, contenido a la derecha */
+  min-height: 100vh;
+  background-color: var(--fondoPagina);
+  color: var(--blanco);
+  font-family: "Inter", Arial, sans-serif;
+}
+
+button {
+  font-family: inherit;
+  color: var(--blanco);
+  cursor: pointer;
+}
+
+/* ---------- MENU LATERAL ---------- */
+
+.menuLateral {
+  position: fixed;     /* se queda pegado a la pantalla */
+  top: 0;
+  left: 0;
+  height: 100vh;       /* ocupa todo el alto de la pantalla */
+  width: 5rem;
+  background-color: var(--fondoMenu);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.8rem 0 1.5rem;
+}
+
+.opcionMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;      /* centra ícono y texto dentro del cuadrito */
+  gap: 0.2rem;
+  width: 3.5rem;
+  aspect-ratio: 1 / 1;          /* el alto siempre es igual al ancho */
+  border-radius: 0.5rem;
+  color: var(--blanco);
+  text-decoration: none;
+  font-size: 0.625rem;          /* texto más pequeño (antes 0.75rem) */
+  transition: background-color 0.2s;
+}
+
+.opcionMenu.activa,
+.opcionMenu:hover {
+  background-color: var(--hoover);
+}
+
+/* Tamaño y color de todos los íconos del menú */
+.opcionMenu svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  fill: var(--blanco);
+}
+
+/* Por defecto se ve el de contorno y se esconde el relleno */
+.iconoLleno {
+  display: none;
+}
+
+/* Cuando está seleccionado o con el mouse encima: se intercambian */
+.opcionMenu.activa .iconoVacio,
+.opcionMenu:hover .iconoVacio {
+  display: none;
+}
+
+.opcionMenu.activa .iconoLleno,
+.opcionMenu:hover .iconoLleno {
+  display: block;
+}
+
+.botonCrear {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.25rem;
+  border-radius: 50%;
+  background-color: var(--icono-imprimir);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuAbajo {
+  margin-top: auto;              /* empuja esta parte hasta el final */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fotoPerfil {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+  background-color: #dc9400;
+}
+
+/* ---------- CONTENIDO PRINCIPAL ---------- */
+
+.contenido {
+  margin-left: 5rem;   /* mismo ancho que .menuLateral */
+  flex: 1;
+  padding: 4rem 1.5rem 2rem;
+  /* degradado de arriba: celeste y morado que se oscurece hacia abajo */
+  background:
+    linear-gradient(to bottom, transparent 5%, var(--fondoPagina) 35%),
+    linear-gradient(100deg, #0e7f8c 0%, #1a1a4a 45%, #4a0fb0 100%);
+}
+
+/* ---------- ENCABEZADO ---------- */
+
+.encabezado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.titulo {
+  font-size: var(--size-titulo);
+  font-weight: 500;
+  /* texto con degradado */
+  background: linear-gradient(90deg, #22d3ee, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pestanas {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pestana,
+.filtro {
+  background: transparent;
+  border: 1px solid var(--blanco);
+  border-radius: 2rem;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--size-info-documentos);
+  color: var(--blanco);
+  text-decoration: none;
+}
+
+.pestana.seleccionada {
+  background-color: var(--btn-selected);
+  border-color: var(--btn-select-trazo);
+}
+
+.buscador {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 40.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--blanco);
+  border-radius: 1.25rem;
+  background-color: var(--fondos-burbujas);
+}
+
+.buscador input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--blanco);
+  font-size: var(--size-info-documentos);
+}
+
+.filtros {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* ========== ICONOS DEL ENCABEZADO ========== */
+ 
+/* Pestanas Inicio y Plantillas: ponemos icono y texto en fila */
+.pestana {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-style:unset;
+}
+ 
+.iconoPestana {
+  width: 1rem;
+  height: 1rem;
+  fill: var(--blanco);
+}
+ 
+/* Lupa del buscador */
+.iconoLupa {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: var(--blanco);
+  flex-shrink: 0;
+}
+ 
+/* Flechita de los filtros */
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+ 
+.iconoFlecha {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: var(--blanco);
+}
+
+/* ---------- TIPOS DE DISEÑO (circulos) ---------- */
+
+.tiposDeDiseno {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 2.5rem 0 2rem;
+}
+
+.tipo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 5.5rem;
+  text-align: center;
+  font-size: var(--size-texto-iconos);
+}
+
+.circulo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.personalizar { background-color: #f2f2f2; color: var(--fondoPagina); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+.presentacion { background-color: var(--icono-presentacion); }
+.redes { background-color: var(--icono-redes); }
+.video { background-color: var(--icono-video); }
+.imprimir { background-color: var(--icono-imprimir); }
+.doc { background-color: var(--icono-doc); }
+.tablero { background-color: var(--icono-pizarra); }
+.hojaCalculo { background-color: var(--icono-hoja-calculo); }
+.disenoInteractivo { background-color: var(--icono-diseño-interactivo); }
+.sitioWeb { background-color: var(--icono-sitio-web); }
+.correo { background-color: var(--icono-correo); }
+
+.fotos {
+  font-size: 2.25rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.tipo {
+  cursor: pointer;                 /* la manito al pasar el mouse */
+  transition: transform 0.2s;      /* el aumento es suave */
+}
+
+.tipo:hover {
+  transform: scale(1.1);           /* crece un 10% */
+}
+
+/* ---------- SEGUIR DISEÑANDO ---------- */
+
+.subtitulo {
+  font-size: var(--size-nombre-documentos);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.listaDocumentos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);   /* 6 columnas iguales */
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.miniatura {
+  height: 8rem;
+  background-color: var(--relleno-secundario-1);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* La hoja clara que va dentro de la miniatura */
+.hoja {
+  background-color: var(--relleno-secundario);
+}
+
+.horizontal { width: 85%; height: 75%; }
+.vertical   { width: 62%; height: 100%; }
+.angosta    { width: 45%; height: 100%; }
+.cuadrada   { width: 61%; height: 85%; }
+
+.nombreDocumento {
+  font-size: var(--size-botones);
+  font-weight: 600;
+  margin: 0.75rem 0 0.4rem;
+}
+
+.infoDocumento {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--size-texto-iconos);
+}
+
+.puntoGris {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background-color: var(--relleno-secundario);
+}
+
+/* ========== PAGINA PLANTILLAS ========== */
+ 
+.inspirado {
+  position: relative;            /* para ubicar el boton siguiente */
+}
+ 
+.filaPlantillas {
+  display: flex;
+  gap: 2rem;
+  overflow: hidden;
+  padding-right: 3rem;           /* deja espacio para el boton */
+}
+ 
+.plantilla {
+  height: 16rem;
+  flex-shrink: 0;                /* no se aplastan si falta espacio */
+  background-color: var(--relleno-secundario);
+  border-radius: 1rem;
+  cursor: pointer;
+}
+ 
+/* Los tres anchos distintos de las tarjetas */
+.plantillaAncha   { width: 23rem; }
+.plantillaMediana { width: 15rem; }
+.plantillaAngosta { width: 11rem; }
+ 
+.botonSiguiente {
+  position: absolute;
+  right: 0;
+  top: 55%;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--blanco);
+  background-color: var(--fondoPagina);
+  font-size: var(--size-botones);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== PAGINA MARCAS ========== */
+ 
+.tusMarcas {
+  margin-top: 2.5rem;
+}
+ 
+.listaMarcas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);   /* 5 tarjetas por fila */
+  gap: 1.5rem;
+}
+ 
+.marca {
+  display: block;
+  aspect-ratio: 1 / 1;                     /* siempre cuadradas */
+  border: 1px solid var(--relleno-secundario);
+  border-radius: 1rem;
+  /* degradado de gris claro (arriba) a gris oscuro (abajo) */
+  background: linear-gradient(to bottom, var(--relleno-secundario), var(--relleno-secundario-1));
+  transition: transform 0.2s;
+}
+ 
+.marca:hover {
+  transform: scale(1.03);
+}
+ 
+/* Tarjeta de "crear marca": fondo oscuro con el signo mas al centro */
+.marcaNueva {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fondoPagina);
+}
+ 
+.iconoMas {
+  width: 2.25rem;
+  height: 2.25rem;
+  fill: var(--blanco);
 }
