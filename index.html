@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="estilos/styles.css">
 </head>
 <body>
-
+  
   <!-- ========== MENU LATERAL ========== -->
   <nav class="menuLateral">
     <a class="opcionMenu" href="#">
@@ -95,7 +95,7 @@
         </svg>
 
       </span>
-      <span class="fotoPerfil"></span>
+      <span class="fotoPerfil" id="btnLogout" title="Cerrar sesión" style="cursor:pointer"></span>
     </div>
   </nav>
 
@@ -285,5 +285,15 @@
 
   </main>
 
+    <script type="module">
+    import { auth } from "./js/firebase.js";
+    import { signOut } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
+    document.getElementById("btnLogout").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
 </body>
 </html>

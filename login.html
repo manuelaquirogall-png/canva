@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="estilos/styleLogin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <section class="vh-100">
+        <div id="contenedor" class="card-body p-5 text-center">
+            <h3 class="mb-5">Sign in</h3>
+            <div class="form-outline mb-4">
+                <input type="email" id="email" class="form-control form-control-lg" placeholder="Email" />
+            </div>
+            <div class="form-outline mb-4">
+                <input type="password" id="password" class="form-control form-control-lg" placeholder="Password (mín. 6)" />
+            </div>
+            <div class="form-check d-flex justify-content-start mb-4">
+                <input class="form-check-input" type="checkbox" id="recordar" checked />
+                <label class="form-check-label" for="recordar">&nbsp;Recordar sesión</label>
+            </div>
+            <p id="mensaje" class="text-danger"></p>
+            <button id="btnLogin" class="btn btn-primary btn-lg w-100 mb-2" type="button">Login</button>
+            <button id="btnRegistro" class="btn btn-outline-primary btn-lg w-100" type="button">Crear cuenta</button>
+            <hr class="my-4">
+            <button id="btnGoogle" class="btn btn-lg w-100 text-white" style="background-color:#dd4b39;" type="button">
+                Sign in with Google
+            </button>
+        </div>
+</section>
+    <script type="module">
+    import { auth } from "./js/firebase.js";
+    import {
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        signInWithPopup,
+        GoogleAuthProvider,
+        setPersistence,
+        browserLocalPersistence,
+        browserSessionPersistence,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
+    const $ = (id) => document.getElementById(id);
+
+    const errores = {
+        "auth/invalid-credential": "Correo o contraseña incorrectos.",
+        "auth/email-already-in-use": "Ese correo ya está registrado.",
+        "auth/weak-password": "La contraseña debe tener mínimo 6 caracteres.",
+        "auth/invalid-email": "El correo no es válido.",
+        "auth/missing-password": "Escribe tu contraseña.",
+        "auth/popup-closed-by-user": "Cerraste la ventana de Google.",
+        "auth/too-many-requests": "Demasiados intentos, espera un momento."
+    };
+
+        async function ejecutar(accion) {
+            $("mensaje").textContent = "";
+            try {
+                // "Recordar sesión": local = sigue al cerrar el navegador, session = se borra
+                await setPersistence(
+                    auth,
+                    $("recordar").checked ? browserLocalPersistence : browserSessionPersistence
+                );
+                await accion();
+            } catch (e) {
+                $("mensaje").textContent = errores[e.code] || e.code;
+            }
+        }
+
+        $("btnLogin").addEventListener("click", () =>
+            ejecutar(() => signInWithEmailAndPassword(auth, $("email").value, $("password").value))
+        );
+
+        $("btnRegistro").addEventListener("click", () =>
+            ejecutar(() => createUserWithEmailAndPassword(auth, $("email").value, $("password").value))
+        );
+
+        $("btnGoogle").addEventListener("click", () =>
+            ejecutar(() => signInWithPopup(auth, new GoogleAuthProvider()))
+        );
+
+        // Si hay sesión (recién iniciada o ya existente), ir al inicio
+        onAuthStateChanged(auth, (user) => {
+            if (user) window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>

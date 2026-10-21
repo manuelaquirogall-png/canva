@@ -1,0 +1,12 @@
+body {
+    background-image: url(https://static.canva.com/web/images/846410263c1d7fe4fe5cd8a0c39e2f44.jpg);
+}
+#contenedor{
+    max-width: 50%;
+    background: #0f1015d9;
+    border-radius: 15px;
+    position: relative;
+    left: 25%;
+    top: 25%;
+}
+
