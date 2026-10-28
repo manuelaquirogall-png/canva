@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Marcas</title>
   <link rel="stylesheet" href="estilos/styles.css">
+
 </head>
 <body>
 
@@ -129,6 +130,34 @@
           </svg>
         </a>
 
+        <!-- ========== VENTANA EMERGENTE (MODAL) ========== -->
+  <div class="modalOverlay" id="modalMarca">
+    <div class="modalEnvoltorio">
+      
+      <div class="modalContenedor">
+        <h2 class="modalTitulo">Crea tu kit de Marca</h2>
+        
+        <div class="modalCampo">
+          <label for="nombreMarca">Nombre</label>
+          <input type="text" id="nombreMarca" placeholder="Ponle nombre a tu kit de marca">
+        </div>
+
+        <p class="modalTexto">
+          Todo tu equipo tendrá acceso al Kit de Marca. Solo pueden hacer cambios en el Kit de Marca quienes sean personas a cargo especialistas en diseño de marcas
+        </p>
+
+        <div class="modalBotones">
+          <button type="button" class="btnModalSecundario">Crear y cerrar</button>
+          <button type="button" class="btnModalPrincipal">Crear y añadir elementos</button>
+        </div>
+      </div>
+
+      <!-- Botón X fuera del contenedor principal -->
+      <button class="modalCerrar" id="btnCerrarModal" aria-label="Cerrar modal">&times;</button>
+
+    </div>
+  </div>
+
         <!-- Marcas que ya existen -->
         <a class="marca" href="#"></a>
         <a class="marca" href="#"></a>
@@ -140,7 +169,69 @@
       </div>
     </section>
 
+    <!-- ========== SEGUNDO MODAL: AÑADIR ELEMENTOS ========== -->
+  <div class="modalOverlay" id="modalElementos">
+    <div class="modalEnvoltorio modalEnvoltorioAncho">
+      
+      <div class="modalContenedor">
+        <!-- Título dinámico -->
+        <div class="modalTituloHeader">
+          <h2 class="modalTitulo" id="tituloMarcaCreada">Nombre nuevo</h2>
+          <svg class="iconoEditar" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 17.25V21H6.75L17.81 9.94L14.06 6.19L3 17.25ZM20.71 7.04C21.1 6.65 21.1 6.02 20.71 5.63L18.37 3.29C17.98 2.9 17.35 2.9 16.96 3.29L15.13 5.12L18.88 8.87L20.71 7.04Z" fill="white"/>
+          </svg>
+        </div>
+        
+        <!-- Cuadrícula de 8 categorías -->
+        <div class="gridElementos">
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Logos</span>
+          </div>
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Colores</span>
+          </div>
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Fuentes</span>
+          </div>
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Componentes</span>
+          </div>
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Plantillas</span>
+          </div>
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Iconos</span>
+          </div>
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Fotos</span>
+          </div>
+          <div class="itemElemento">
+            <div class="cajaElemento"></div>
+            <span>Gráficos</span>
+          </div>
+        </div>
+
+        <!-- Botón Guardar -->
+        <div class="modalBotonesCentro">
+          <button type="button" class="btnModalSecundario" id="btnGuardarElementos">Guardar</button>
+        </div>
+      </div>
+
+      <button class="modalCerrar" id="btnCerrarElementos" aria-label="Cerrar modal">&times;</button>
+
+    </div>
+  </div>
+
   </main>
+
+  <script src="/js/animacion.js"></script>
 
 </body>
 </html>

@@ -240,6 +240,13 @@ button {
   flex-shrink: 0;
 }
  
+.iconoLupa2 {
+  width: 1rem;
+  height: 1rem;
+  fill: var(--blanco);
+  flex-shrink: 0;
+}
+
 /* Flechita de los filtros */
 .filtro {
   display: inline-flex;
@@ -251,6 +258,224 @@ button {
   width: 0.75rem;
   height: 0.75rem;
   fill: var(--blanco);
+}
+
+/* ========== VENTANAS DE LOS FILTROS ========== */
+ 
+:root {
+  --fondoVentana: #000000;
+  --grisSeleccion: #8a8a8a;
+}
+ 
+.filtros {
+  position: relative;
+}
+ 
+/* Cada boton con su ventana. "relative" para ubicar la ventana debajo del boton */
+.filtroCaja {
+  position: relative;
+}
+ 
+/* Los circulos de seleccion no se ven, solo guardan cual ventana esta abierta */
+.interruptor {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+ 
+.filtro {
+  cursor: pointer;
+}
+ 
+/* El boton del filtro abierto se pinta como seleccionado */
+.interruptor:checked + .filtro {
+  background-color: var(--btn-selected);
+  border-color: var(--btn-select-trazo);
+}
+ 
+/* Se ve el contorno cuando se navega con el teclado */
+.interruptor:focus-visible + .filtro {
+  outline: 2px solid var(--btn-select-trazo);
+}
+ 
+/* ---------- LA VENTANA ---------- */
+ 
+.ventana {
+  display: none;                      /* cerrada por defecto */
+  position: absolute;
+  top: calc(100% + 0.5rem);           /* justo debajo del boton */
+  left: 50%;
+  transform: translateX(-50%);        /* centrada respecto al boton */
+  width: 21.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--fondoVentana);
+  border: 1px solid var(--relleno-secundario);
+  border-radius: 1.25rem;
+  z-index: 10;
+}
+ 
+/* Cuando el circulo de este filtro esta marcado, se muestra su ventana */
+.interruptor:checked + .filtro + .ventana {
+  display: block;
+}
+ 
+/* Parte de arriba: buscador + boton X */
+.ventanaArriba {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+ 
+.buscadorVentana {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--blanco);
+  border-radius: 2rem;
+}
+ 
+.buscadorVentana input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--blanco);
+  font-size: var(--size-texto-iconos);
+}
+ 
+.botonCerrar {
+  margin-left: auto;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--blanco);
+  border-radius: 50%;
+  cursor: pointer;
+}
+ 
+.iconoCerrar {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: var(--blanco);
+}
+ 
+/* ---------- LISTA DE OPCIONES ---------- */
+ 
+.listaOpciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-height: 15rem;                  /* si hay mas opciones, aparece el scroll */
+  overflow-y: auto;
+  margin-top: 1rem;
+  padding-right: 0.5rem;
+}
+ 
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--size-info-documentos);
+  cursor: pointer;
+}
+ 
+/* Cuadrito de seleccion hecho con CSS (en vez del que trae el navegador) */
+.opcion input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  display: grid;
+  place-content: center;
+  border: 2px solid var(--blanco);
+  border-radius: 0.3rem;
+  background: transparent;
+  cursor: pointer;
+}
+ 
+.opcion input[type="radio"] {
+  border-radius: 50%;                 /* las de fecha son redondas: solo se elige una */
+}
+ 
+.opcion input:checked {
+  background-color: var(--grisSeleccion);
+  border-color: var(--grisSeleccion);
+}
+ 
+/* La palomita */
+.opcion input:checked::after {
+  content: "";
+  width: 0.3rem;
+  height: 0.6rem;
+  border: solid var(--blanco);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+ 
+/* Circulito de color (ventana de Color) */
+.muestra {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+ 
+.rojo     { background-color: var(--icono-redes); }
+.naranja  { background-color: var(--icono-presentacion); }
+.amarillo { background-color: #facc15; }
+.verde    { background-color: var(--icono-pizarra); }
+.celeste  { background-color: var(--icono-doc); }
+.azul     { background-color: var(--icono-hoja-calculo); }
+.morado   { background-color: var(--icono-imprimir); }
+.rosado   { background-color: var(--icono-video); }
+.negro    { background-color: #000000; border: 1px solid var(--blanco); }
+.blanco   { background-color: var(--blanco); }
+ 
+/* ---------- MEDIDA PERSONALIZADA (ventana de Tamaño) ---------- */
+ 
+.medidaPersonalizada {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+ 
+.etiquetaGris {
+  padding: 0.3rem 0.75rem;
+  border-radius: 2rem;
+  background-color: #4a4a4a;
+}
+ 
+.camposMedida {
+  display: flex;
+  gap: 0.75rem;
+  padding-left: 2rem;                 /* alineados con el texto de arriba */
+}
+ 
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+}
+ 
+.campo input,
+.campo select {
+  width: 4.5rem;
+  padding: 0.2rem 0.6rem;
+  background-color: var(--fondoVentana);
+  border: 1px solid var(--blanco);
+  border-radius: 2rem;
+  color: var(--blanco);
+  font-family: inherit;
+  font-size: var(--size-texto-iconos);
 }
 
 /* ---------- TIPOS DE DISEÑO (circulos) ---------- */
@@ -440,4 +665,226 @@ button {
   width: 2.25rem;
   height: 2.25rem;
   fill: var(--blanco);
+}
+
+/* ========== VENTANA EMERGENTE (MODAL) ========== */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 9999;
+}
+
+.modalOverlay.activo {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Envoltorio para permitir que la 'X' se ubique libremente afuera */
+.modalEnvoltorio {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 36rem;
+  width: 90%;
+}
+
+.modalContenedor {
+  background-color: #1a1a1a;
+  border: 1px solid #333333;
+  border-radius: 1.25rem;
+  width: 100%;
+  padding: 2.25rem 2rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+.modalCerrar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--blanco);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--blanco);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.modalCerrar:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modalTitulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--blanco);
+}
+
+.modalCampo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.modalCampo label {
+  font-size: 0.875rem;
+  color: var(--blanco);
+}
+
+.modalCampo input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #121212;
+  border: 1px solid #444444;
+  border-radius: 0.75rem;
+  color: var(--blanco);
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.modalCampo input:focus {
+  border-color: var(--btn-select-trazo);
+}
+
+.modalTexto {
+  font-size: 0.8125rem;
+  color: #b3b3b3;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+}
+
+.modalBotones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btnModalSecundario {
+  background: transparent;
+  border: 1px solid #555555;
+  padding: 0.6rem 1.25rem;
+  border-radius: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--blanco);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btnModalSecundario:hover {
+  background-color: #2a2a2a;
+}
+
+.btnModalPrincipal {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 1.5rem;
+  font-size: 0.875rem;
+  color: #121212;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btnModalPrincipal:hover {
+  background-color: var(--blanco);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  color: var(--blanco);
+  text-decoration: none;  /* Quita el subrayado del enlace */
+  font-weight: bold;       /* Aplica negrita al texto */
+  text-align: center;     /* Centra el texto si ocupa varias líneas */
+  word-break: break-word;  /* Evita que palabras muy largas salgan del cuadro */
+}
+
+/* Estilos adicionales para el segundo modal */
+.modalEnvoltorioAncho {
+  max-width: 48rem; /* Más ancho para dar espacio a los 4 elementos por fila */
+}
+
+.modalTituloHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.modalTituloHeader .modalTitulo {
+  margin-bottom: 0;
+}
+
+.iconoEditar {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.iconoEditar:hover {
+  opacity: 1;
+}
+
+.gridElementos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.itemElemento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.cajaElemento {
+  width: 100%;
+  aspect-ratio: 1.3 / 1;
+  border: 1px solid var(--relleno-secundario);
+  border-radius: 0.75rem;
+  background: linear-gradient(to bottom, var(--relleno-secundario), var(--relleno-secundario-1));
+  transition: transform 0.2s;
+}
+
+.itemElemento:hover .cajaElemento {
+  transform: scale(1.03);
+}
+
+.itemElemento span {
+  font-size: 0.8125rem;
+  color: var(--blanco);
+  font-weight: 500;
+}
+
+.modalBotonesCentro {
+  display: flex;
+  justify-content: center;
 }
